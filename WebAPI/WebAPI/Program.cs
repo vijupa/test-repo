@@ -27,12 +27,12 @@ namespace WebAPI
             builder.Services.AddSignalR(options => options.EnableDetailedErrors = true);
             builder.Services.AddHostedService<LiveMeetingObserver>();
 
-            if (builder.Environment.IsProduction())
-            {
-                builder.Configuration.AddAzureKeyVault(
-                    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
-                    new DefaultAzureCredential());
-            }
+            //if (builder.Environment.IsProduction())
+            //{
+            //    builder.Configuration.AddAzureKeyVault(
+            //        new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+            //        new DefaultAzureCredential());
+            //}
 
             var app = builder.Build();
 
