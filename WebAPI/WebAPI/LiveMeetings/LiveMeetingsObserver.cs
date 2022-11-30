@@ -18,23 +18,25 @@ namespace WebAPI.LiveMeetings
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var subscription = await CreateSubscription();
-            var receiver = CreateReceiver(subscription.SubscriptionName);
+            //var subscription = await CreateSubscription();
+            //var receiver = CreateReceiver(subscription.SubscriptionName);
 
-            int clickCount = 0;
-            while (true)
-            {
-                await Task.Delay(1000);
-                var messages = await receiver.ReceiveMessagesAsync(1000);
-                if (messages == null)
-                {
-                    continue;
-                }
+            //int clickCount = 0;
+            //while (true)
+            //{
+            //    await Task.Delay(1000);
+            //    var messages = await receiver.ReceiveMessagesAsync(1000);
+            //    if (messages == null)
+            //    {
+            //        continue;
+            //    }
 
-                await _hub.Clients.All.SendAsync("clickCount", clickCount++);
+            //    await _hub.Clients.All.SendAsync("clickCount", clickCount++);
 
-                await CompleteMessages(receiver, messages);
-            }
+            //    await CompleteMessages(receiver, messages);
+            //}
+
+            await Task.CompletedTask;
         }
 
         private ServiceBusReceiver CreateReceiver(string subscriptionName)
