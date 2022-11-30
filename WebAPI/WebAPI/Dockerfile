@@ -16,15 +16,15 @@ FROM build AS publish
 RUN dotnet publish "WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM node:16 AS node-builder
-RUN mkdir -p /components/example
-WORKDIR /components/example
-COPY ./WebComponents/Example /components/example
-RUN npm install
-RUN npm run build
-WORKDIR /components/decision
-COPY ./WebComponents/Decision /components/decision
-RUN npm install
-RUN npm run build
+#RUN mkdir -p /components/example
+#WORKDIR /components/example
+#COPY ./WebComponents/Example /components/example
+#RUN npm install
+#RUN npm run build
+#WORKDIR /components/decision
+#COPY ./WebComponents/Decision /components/decision
+#RUN npm install
+#RUN npm run build
 WORKDIR /components/meeting
 COPY ./WebComponents/Meeting /components/meeting
 RUN npm install
@@ -34,7 +34,7 @@ FROM base AS final
 RUN mkdir -p /app/ScriptFiles/components
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=node-builder /components/example/dist/bundle.js ./ScriptFiles/components/example.js
-COPY --from=node-builder /components/decision/dist/bundle.js ./ScriptFiles/components/decision.js
+#COPY --from=node-builder /components/example/dist/bundle.js ./ScriptFiles/components/example.js
+#COPY --from=node-builder /components/decision/dist/bundle.js ./ScriptFiles/components/decision.js
 COPY --from=node-builder /components/meeting/dist/bundle.js ./ScriptFiles/components/meeting.js
 ENTRYPOINT ["dotnet", "WebAPI.dll"]
