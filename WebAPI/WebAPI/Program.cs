@@ -1,5 +1,7 @@
 
 using Azure.Identity;
+using Microsoft.AspNetCore.Hosting;
+using System.Reflection.PortableExecutable;
 using WebAPI.LiveMeetings;
 
 namespace WebAPI
@@ -27,6 +29,10 @@ namespace WebAPI
             builder.Services.AddSignalR(options => options.EnableDetailedErrors = true);
             builder.Services.AddHostedService<LiveMeetingObserver>();
 
+            builder.Host.ConfigureWebHostDefaults(options =>
+            {
+                options.UseUrls("http://localhost:8080");
+            });
             //if (builder.Environment.IsProduction())
             //{
             //    builder.Configuration.AddAzureKeyVault(
@@ -43,7 +49,7 @@ namespace WebAPI
             app.UseRouting();
 
             // Configure the HTTP request pipeline.
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
