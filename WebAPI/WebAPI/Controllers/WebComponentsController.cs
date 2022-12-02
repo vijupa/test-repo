@@ -9,16 +9,20 @@ namespace WebAPI.Controllers
     {
 
         private readonly IConfiguration _configuration;
+        private readonly ILogger<WebComponentsController> _logger;
 
-        public WebComponentsController(IConfiguration configuration)
+        public WebComponentsController(IConfiguration configuration,
+            ILogger<WebComponentsController> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("example.js")]
         public async Task<IActionResult> GetExample()
         {
+            _logger.LogInformation("GetExample");
             var text = await System.IO.File
                 .ReadAllTextAsync("./ScriptFiles/components/example.js");
             var apiUrl = _configuration["API_URL"];
@@ -30,6 +34,7 @@ namespace WebAPI.Controllers
 
             text = text.Replace("#--API_URL--#", apiUrl);
 
+            _logger.LogInformation("GetExample exit");
             return File(Encoding.UTF8.GetBytes(text), "application/javascript");
         }
 
@@ -55,6 +60,7 @@ namespace WebAPI.Controllers
         [Route("meeting.js")]
         public async Task<IActionResult> GetMeeting()
         {
+            _logger.LogInformation("GetMeeting");
             var text = await System.IO.File
                 .ReadAllTextAsync("./ScriptFiles/components/meeting.js");
             var apiUrl = _configuration["API_URL"];
@@ -66,6 +72,7 @@ namespace WebAPI.Controllers
 
             text = text.Replace("#--API_URL--#", apiUrl);
 
+            _logger.LogInformation("GetMeeting exit");
             return File(Encoding.UTF8.GetBytes(text), "application/javascript");
         }
 
