@@ -29,10 +29,10 @@ namespace WebAPI
             builder.Services.AddSignalR(options => options.EnableDetailedErrors = true);
             builder.Services.AddHostedService<LiveMeetingObserver>();
 
-            builder.Host.ConfigureWebHostDefaults(options =>
-            {
-                options.UseUrls("http://localhost:8080");
-            });
+            //builder.Host.ConfigureWebHostDefaults(options =>
+            //{
+            //    options.UseUrls("http://localhost:8080");
+            //});
             //if (builder.Environment.IsProduction())
             //{
             //    builder.Configuration.AddAzureKeyVault(
